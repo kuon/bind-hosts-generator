@@ -1,0 +1,15 @@
+
+host_file_url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+output_file = "blocked.zone"
+ip = "0.0.0.0"
+
+header = """
+$TTL 600
+@            IN    SOA  localhost. root.localhost.  (
+                          2019022501   ; serial
+                          1h           ; refresh
+                          30m          ; retry
+                          1w           ; expiry
+                          30m)         ; minimum
+                   IN     NS    localhost.
+"""
