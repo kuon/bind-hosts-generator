@@ -41,7 +41,13 @@ fn main() {
 
     for line in host_data.lines() {
         if line.starts_with("0.0.0.0 ") {
-            if let Some(host) = line.get(8..) {
+            let range =
+            if let Some(idx) = line.find('#') {
+                8..idx
+            } else {
+                8..line.len()
+            };
+            if let Some(host) = line.get(range) {
                 write!(output_file, "{} A {}\n", host, config.ip).unwrap();
             }
         }
