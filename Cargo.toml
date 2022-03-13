@@ -10,13 +10,6 @@ edition = "2018"
 toml = "0.5"
 structopt = "0.3"
 serde = { version = "1.0", features = ["derive"] }
-reqwest = "0.9"
+reqwest = { version= "0.9", features = ["rustls-tls"], default-features = false}
 
-# Add openssl-sys as a direct dependency so it can be cross compiled to
-# x86_64-unknown-linux-musl using the "vendored" feature below
-openssl-sys = "*"
 
-[features]
-# Force openssl-sys to staticly link in the openssl library. Necessary when
-# cross compiling to x86_64-unknown-linux-musl.
-vendored = ["openssl-sys/vendored"]
