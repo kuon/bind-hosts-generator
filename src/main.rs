@@ -30,7 +30,7 @@ fn main() {
     let config = String::from_utf8_lossy(&config);
     let config: Config = toml::from_str(&config).unwrap();
 
-    let host_data = reqwest::get(Url::parse(&config.host_file_url).unwrap())
+    let host_data = reqwest::blocking::get(Url::parse(&config.host_file_url).unwrap())
         .unwrap()
         .text()
         .unwrap();
