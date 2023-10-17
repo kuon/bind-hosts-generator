@@ -18,6 +18,6 @@ EOF
 
 cat $dir/hosts | rg '^0\.0\.0\.0 ' -r '' | rg '^0\.0\.0\.0 ' -r '' |rg '$' -r ' A 0.0.0.0' >> $dir/result
 
-mv $dir/result /etc/pdns/rpz/blocked.zone
+mv $dir/result /etc/pdns/rpz/blocked.rpz
 
 rm -fr $dir
