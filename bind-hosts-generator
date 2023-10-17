@@ -16,7 +16,7 @@ $TTL 600
                    IN     NS    localhost.
 EOF
 
-cat $dir/hosts | rg '^0\.0\.0\.0 ' -r '' | rg '$' -r ' A 0.0.0.0' >> $dir/result
+cat $dir/hosts | rg '^0\.0\.0\.0 ' -r '' | rg '$' -r ' A 0.0.0.0' | rg -v '#' >> $dir/result
 
 mv $dir/result /etc/pdns/rpz/blocked.rpz
 
