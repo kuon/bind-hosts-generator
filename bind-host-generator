@@ -1,9 +1,11 @@
+#!/bin/sh
 
-host_file_url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
-output_file = "blocked.zone"
-ip = "0.0.0.0"
 
-header = """
+dir=$(mktemp -d)
+
+curl -Lo $dir/hosts https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+
+cat <<'EOF' > $dir/result
 $TTL 600
 @            IN    SOA  localhost. root.localhost.  (
                           2019022501   ; serial
@@ -12,4 +14,10 @@ $TTL 600
                           1w           ; expiry
                           30m)         ; minimum
                    IN     NS    localhost.
-"""
+EOF
+
+cat $dir/hosts | rg '^0\.0\.0\.0 ' -r '' | rg '^0\.0\.0\.0 ' -r '' |rg '$' -r ' A 0.0.0.0' >> $dir/result
+
+mv $dir/result /etc/pdns/rpz/blocked.zone
+
+rm -fr $dir
